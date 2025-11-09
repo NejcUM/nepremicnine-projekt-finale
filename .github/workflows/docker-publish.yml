@@ -35,16 +35,9 @@ jobs:
             nejchd/nepremicnine-projekt-finale:latest
             nejchd/nepremicnine-projekt-finale:${{ steps.vars.outputs.SHORT_SHA }}
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          enable-AzPSSession: true
-
-      # DODAJ ŠE TA KORAK - DEPLOY NA AZURE
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'tvoj-app-service-ime'  # 👈 TU VPIŠI IMENO TVOJEGO APP SERVICE
-          slot-name: 'production'
+          app-name: 'tvoj-app-service-ime'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # 👈 UPORABI PUBLISH PROFILE DIRECTLY
           images: 'nejchd/nepremicnine-projekt-finale:latest'
