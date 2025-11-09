@@ -32,5 +32,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            nejchd/NepremicnineProjekt:latest
-            nejchd/NepremicnineProjekt:${{ steps.vars.outputs.SHORT_SHA }}
+            nejchd/nepremicnine-projekt-finale:latest
+            nejchd/nepremicnine-projekt-finale:${{ steps.vars.outputs.SHORT_SHA }}
