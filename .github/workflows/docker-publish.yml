@@ -38,7 +38,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_MEBAPP_PUBLISH_PROFILE }}
+          creds: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           enable-AzPSSession: true
 
       # DODAJ ŠE TA KORAK - DEPLOY NA AZURE
