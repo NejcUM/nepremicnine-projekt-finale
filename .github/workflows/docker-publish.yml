@@ -40,4 +40,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_MEBAPP_PUBLISH_PROFILE }}
           enable-AzPSSession: true
-    
+
+      # DODAJ ŠE TA KORAK - DEPLOY NA AZURE
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'tvoj-app-service-ime'  # 👈 TU VPIŠI IMENO TVOJEGO APP SERVICE
+          slot-name: 'production'
+          images: 'nejchd/nepremicnine-projekt-finale:latest'
