@@ -39,5 +39,5 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_MEBAPP_PUBLISH_PROFILE }}
-
+          enable-AzPSSession: true
     
