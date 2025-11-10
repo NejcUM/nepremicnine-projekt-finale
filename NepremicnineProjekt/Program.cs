@@ -1,32 +1,28 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
-app.MapGet("/api/hello", () => new { message = "Hello from API!" });
-
-app.MapGet("/", () => Results.Content(@"
-<!DOCTYPE html>
-<html>
-<head>
-<title>Hello</title>
-<style>
-    body {
-        background-color: #fafafa;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        font-size: 48px;
-        color: #333;
-        margin: 0;
+// Simple middleware
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
     }
-</style>
-</head>
-<body>
-Hello World :D
-</body>
-</html>
-", "text/html")); // <-- pomembno!
+    catch (Exception ex)
+    {
+        Console.WriteLine($"ERROR: {ex}");
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsync($"Error: {ex.Message}");
+    }
+});
 
-app.Run();
+// Simple route
+app.MapGet("/", () => "Hello World from Azure App Service!");
+
+app.MapGet("/health", () => "Healthy");
+
+app.Run("http://*:8080");
