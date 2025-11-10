@@ -1,6 +1,9 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+app.MapGet("/", () => "Hello World!");
+app.MapGet("/api/hello", () => new { message = "Hello from API!" });
+
 app.MapGet("/", () => Results.Content(@"
 <!DOCTYPE html>
 <html>
