@@ -1,6 +1,5 @@
 # Base stage (runtime environment)
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -24,5 +23,4 @@ RUN dotnet publish "NepremicnineProjekt.csproj" -c $BUILD_CONFIGURATION -o /app/
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
 ENTRYPOINT ["dotnet", "NepremicnineProjekt.dll"]
