@@ -1,22 +1,29 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+namespace NepremicnineProjekt;
 
-app.UseStaticFiles();
-
-app.MapGet("/", () => Results.Redirect("/login.html"));
-
-app.MapPost("/login", async (HttpRequest request) =>
+public class Program
 {
-    var form = await request.ReadFormAsync();
-    var username = form["username"];
-    var password = form["password"];
+    public static DBManager db_manager = new DBManager();
     
-    if(username == "admin" && password == "1234")
-        return Results.Text("<h1>Login successful!</h1>", "text/html");
-    else
-        return Results.Text("<h1>Invalid credentials!</h1>", "text/html");
-});
+    public static void Main(string[] args)
+    {
+        
+        var builder = WebApplication.CreateBuilder(args);
+        var app = builder.Build();
 
-app.Run("http://*:8080");
+        app.UseStaticFiles();
+
+        app.MapGet("/", LoginPage.Show);
+        app.MapGet("/login", LoginPage.Show);
+        app.MapPost("/login", LoginPage.Handle);
+
+        app.MapGet("/register", RegisterPage.Show);
+        app.MapPost("/register", RegisterPage.Handle);
+
+        app.MapGet("/admin", AdminPage.Show);
+        app.MapPost("/admin", AdminPage.Handle);
 
 
+        app.Run("http://*:8080");
+    }
+    
+}
