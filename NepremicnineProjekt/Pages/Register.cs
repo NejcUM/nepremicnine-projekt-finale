@@ -30,7 +30,7 @@ public static class RegisterPage
         });
         
         if (!success)
-            return Results.Redirect(message);
+            return Results.Text(message);
         
         return Results.Redirect("/home.html");
     }
