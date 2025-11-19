@@ -14,14 +14,14 @@ public static class LoginPage
         var form = await request.ReadFormAsync();
         var username = form["username"];
         var password = form["password"];
-        
+
         if (Program.db_manager.LoginCheck(username, password))
         {
-           return Results.Redirect("/home.html");
+            return Results.Json(new { success = true});
         }
         else
         {
-           return Results.Redirect("/login.html");
+            return Results.Json(new { success = false, message = "Invalid username or password" });
         }
     }
     

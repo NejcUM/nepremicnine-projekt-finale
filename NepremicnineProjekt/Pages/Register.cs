@@ -22,7 +22,7 @@ public static class RegisterPage
             return Results.Text("Passwords do not match");
         }
         
-        var (success, message) = Program.db_manager.AddUser(new User
+        var (success, _message) = Program.db_manager.AddUser(new User
         {
             Username = username,
             Email = email,
@@ -30,8 +30,8 @@ public static class RegisterPage
         });
         
         if (!success)
-            return Results.Text(message);
+            return Results.Json(new { success = false, message = _message });
         
-        return Results.Redirect("/home.html");
+        return Results.Json(new { success = true});
     }
 }

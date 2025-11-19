@@ -1,0 +1,64 @@
+:root{
+    --mainPurple: #513786;
+    --secondPurple: #513786;
+    --nightDark: #040420;
+    --nightLight: #4d367b;
+    --night: linear-gradient(13deg, var(--nightLight) 25%, var(--nightDark) 95%);
+    --btnBorder: 16px;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'APL', sans-serif;
+
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+@font-face {
+    font-family: APL;
+    src: url(Aga.ttf);
+}
+
+.container-fluid {
+    background: var(--night);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.login-btn {
+    background: #513786;
+    display:block; 
+    width:100%; 
+    padding:10px; 
+    margin:10px 0;
+    border-radius:var(--btnBorder);
+    color:#fff;
+}
+
+.register-btn {
+    background: #896ebc;
+    display:block;
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:var(--btnBorder);
+    color:#fff;
+}
+
+.error-text {
+    color:#ff5252; 
+    text-align: center;
+}

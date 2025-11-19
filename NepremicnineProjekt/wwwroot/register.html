@@ -2,15 +2,66 @@
 <html lang="en">
 <head>
     <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h1>Register</h1>
-<form method="post" action="/register">
-    <input type="text" name="username" placeholder="Username" required />
-    <input type="text" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <input type="password" name="password-again" placeholder="Password Again" required />
-    <button type="submit">Register</button>
-</form>
+
+<div class="container-fluid">
+    <div style="width: 30%; height: 65%; background: #191919;    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 20px;
+    transform: translate(-50%, -50%);">
+        <form id="register-form" method="post" action="/register"
+              style="width:300px; margin:0 auto;">
+            <h1 style="text-align: center; margin-top: 12%; margin-bottom: 10%">Register</h1>
+
+            <input type="text" name="username" placeholder="Username" required
+                   style="display:block; width:100%; padding:10px; margin:10px 0" />
+
+            <input type="text" name="email" placeholder="Email" required
+                   style="display:block; width:100%; padding:10px; margin:10px 0" />
+
+            <input type="password" name="password" placeholder="Password" required
+                   style="display:block; width:100%; padding:10px; margin:10px 0;" />
+
+            <input type="password" name="password-again" placeholder="Password again" required
+                   style="display:block; width:100%; padding:10px; margin:10px 0;" />
+
+            <button type="submit" class="register-btn">Register</button>
+
+            <a style="display:block; text-align:center; margin:5px 0; color:white;">
+                or
+            </a>
+
+            <button type="button" class="login-btn"
+                    onclick="window.location.href='/login.html'"
+            >Login</button>
+            
+            <div id="error-message" class="error-text"></div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("register-form");
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const res = await fetch("/register", { method: "POST", body: formData });
+        const result = await res.json();
+
+        const errorDiv = document.getElementById("error-message");
+        if(result.success){
+            window.location.href = "/home.html";
+        } else {
+            errorDiv.innerText = result.message;
+        }
+    });
+</script>
+
 </body>
 </html>
