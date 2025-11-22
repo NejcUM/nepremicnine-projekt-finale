@@ -7,24 +7,36 @@
 </head>
 <body>
 
-<header style="background: var(--headerColor); height: 130px">
-    <div style="height: 80px">
-        <h1 style="width: 100%; text-align: center; color: white; padding-top: 15px">NEPREMICNINE</h1>
-    </div>
-    <div style="height: 40px; width: 100%; text-align: center">
-        <button class="top-category-btn">Novogradnje</button>
-        <button class="top-category-btn">Ne spreglejte</button>
-        <button class="top-category-btn">Javne drazbe</button>
-        <button class="top-category-btn">Zemljevid</button>
-        <input class="top-searchbar" placeholder="Search...">
-        <button class="top-search-btn">
-            <img src="images/search.png" style="height: 60%" >
-        </button>
-    </div>
-</header>
+<div id="header"></div>
 
-<div style="width: 85%; height: 1000px; background: #191919;  margin: 0 auto; border-radius: 20px; margin-top: 30px;">
-    <div style="width: 90%; height: 500px; background: #a8a8a8; margin: 0 auto; border-radius: 20px; overflow: hidden; display: none">
+<section class="main-section">
+    <div style="width: 90%; height: 500px; background: #a8a8a8; margin: 0 auto; border-radius: 20px; overflow: hidden;">
+        <div style="display:flex; height:100%">
+
+            <div style="width:50%; display:flex; flex-direction:column;">
+                <div style="flex:1; border:0; position:relative; overflow: hidden">
+                    <img src="images/oglas_3.png" style="width:100%; display:block;">
+                    <button class="overlay-textbox">Aktualno</button>
+                </div>
+                <div style="flex:1; border:0; position:relative;">
+                    <img src="images/widget_cena.png" style="width:100%; display:block;">
+                    <button class="overlay-textbox">Cene na trgu</button>
+                </div>
+            </div>
+
+            <div style="width:50%; border:0; position:relative;">
+                <img src="images/map.png" style="width:100%; display:block;">
+                <button class="overlay-textbox"> Interaktivna mapa </button>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="main-section">
+
+    <div style="width: 90%; height: 500px; background: #a8a8a8; margin: 0 auto; border-radius: 20px; overflow: hidden;">
         <div style="display:flex; height:100%">
 
             <div style="width:50%; display:flex; flex-direction:column;">
@@ -49,14 +61,45 @@
 
     </div>
 
+</section>
 
-</div>
+<section class="main-section">
+
+    <div style="width: 90%; height: 500px; background: #a8a8a8; margin: 0 auto; border-radius: 20px; overflow: hidden;">
+        <div style="display:flex; height:100%">
+
+            <div style="width:50%; display:flex; flex-direction:column;">
+                <div style="flex:1; border:0;">
+
+                </div>
+                <div style="flex:1; border:0;">
+
+                </div>
+            </div>
+
+            <div style="width:50%; border:0; position:relative;">
+                <img src="images/map.png" style="width:100%; display:block;">
+
+                <div class="overlay-textbox" style="">
+                    <h1>Interaktivna mapa</h1>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div id="footer"></div>
+
+
 
 
 
     
-    
-</div>
+
 
 
 
@@ -64,4 +107,15 @@
 
 
 </body>
+
+<script>
+    fetch("header.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("header").innerHTML = html);
+
+    fetch("footer.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
 </html>

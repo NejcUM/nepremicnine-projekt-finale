@@ -1,10 +1,13 @@
 :root{
     --mainColor: #0fa2df;
     --secondColor: #25bdfb;
-    --topColors: #17bbff;
-    --headerColor: #229fd5;
+    --mainDark: #191919;
     --night: linear-gradient(13deg, var(--mainColor) 25%, var(--secondColor) 95%);
     --btnBorder: 16px;
+}
+
+html{
+    background-color: var(--secondColor);
 }
 
 * {
@@ -13,7 +16,6 @@
     padding: 0px;
     margin: 0px;
     font-family: 'APL', sans-serif;
-
 }
 
 body {
@@ -70,36 +72,8 @@ body {
     text-align: center;
 }
 
-.top-category-btn{
-    background: var(--topColors); 
-    height: 100%; 
-    width: 10%;
-    color: white;
-    border-radius: 15px;
-    border: 0;
-    font-size: 16px
-}
-
-.top-searchbar{
-    background: var(--topColors);
-    height: 100%;
-    width: 20%;
-    color: white;
-    border-radius: 15px;
-    border: 0;
-}
-
-.top-search-btn{
-    background: var(--topColors);
-    height: 100%;
-    width: 50px;
-    color: white;
-    border-radius: 15px;
-    border: 0;
-}
-
 .overlay-textbox{
-    background: var(--topColors); 
+    background: var(--secondColor); 
     width:50%; 
     height:50px; 
     position:absolute; 
@@ -109,8 +83,86 @@ body {
     justify-content:center;
     align-items:center; 
     border-radius: var(--btnBorder);
+    font-size: 22px; color: white;
+    border: 3px solid var(--mainColor);
 }
 
-.overlay-textbox h1{
-    font-size: 22px; color: white
+.main-section {
+    background: var(--mainDark); 
+    width: 85%; 
+    height: auto; 
+    margin: 0 auto; 
+    margin-top: 20px; 
+    border-radius: 20px; 
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow: hidden
+}
+
+header {
+    width: 85%; 
+    height: 150px; 
+    margin-top: 20px; 
+    margin-left:auto; 
+    margin-right: auto;  
+    border-radius: 20px; 
+    background: #191919;
+}
+
+header h1 {
+    text-align: center; 
+    color: white; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+header div {
+    height: 40px; 
+    width: 100%; 
+    text-align: center
+}
+
+.top-category-btn{
+    background: var(--secondColor);
+    height: 100%;
+    width: 10%;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.top-searchbar{
+    background: var(--secondColor);
+    height: 100%;
+    width: 20%;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.top-searchbar::placeholder {
+    color: white; 
+    padding-left: 20px;
+}
+.top-search-btn{
+    background: var(--secondColor);
+    height: 100%;
+    width: 50px;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+footer{
+    width: 100%; 
+    height: 150px; 
+    background: var(--mainDark); 
+    margin-top: 20px
 }
