@@ -3,6 +3,7 @@ namespace NepremicnineProjekt;
 public class Program
 {
     public static DBManager db_manager = new DBManager();
+    public static List<Post> posts = new List<Post>();
     
     public static void Main(string[] args)
     {
@@ -21,7 +22,64 @@ public class Program
 
         app.MapGet("/admin", AdminPage.Show);
         app.MapPost("/admin", AdminPage.Handle);
-
+        
+        app.MapGet("/home", HomePage.Show);
+        app.MapPost("/home", HomePage.Handle);
+        
+        app.MapGet("/index", HomePage.Show);
+        app.MapPost("/index", HomePage.Handle);
+        
+        app.MapGet("/posts", PostsPage.Show);
+        app.MapPost("/posts", PostsPage.Handle);
+        
+       
+        posts.Add(new Post(
+            "Nova hiša",
+            "Na prodaji zelo lepa nova bela hiša",
+            "https://www.krka-nepremicnine.si/wp-content/uploads/2025/06/IMG_4639.jpg",
+            "150",
+            "#ec5929",
+            "180 000"
+            ));
+        
+        posts.Add(new Post(
+            "Stara hiša",
+            "Na prodaji stara hiša",
+            "https://img.nepremicnine.net/slonep_oglasi2/18630086.jpg",
+            "110",
+            "#5f3119",
+            "99 000"
+        ));
+        
+        posts.Add(new Post(
+            "1 sobno stanovanje",
+            "NOVOGRADNJA - OTOK KRK !! Mesto Krk, na dobri lokaciji 500 m od morja.",
+            "https://img.nepremicnine.net/slonep_oglasi2/16903995.jpg",
+            "64",
+            "#58647c",
+            "362 500"
+        ));
+        
+        posts.Add(new Post(
+            "1,5 sobno stanovanje",
+            "",
+            "https://img.nepremicnine.net/slonep_oglasi2/16467713.jpg",
+            "85",
+            "#63a1d0",
+            "159 000"
+        ));
+        
+        posts.Add(new Post(
+            "Vrstna hiša v šentvidu",
+            "V mirnem in zelenem okolju v Šentvidu prodamo sodobno zasnovano vrstno hišo, ki se nahaja v urejeni soseski osmih vrstnih hiš.",
+            "https://www.mestonepremicnin.si/uploads/novogradnja/brez-31__ujyd1wVE-1500x972_1763560328.jpg",
+            "192",
+            "#82874f",
+            "682 000"
+        ));
+        
+        
+        
 
         app.Run("http://*:8080");
     }

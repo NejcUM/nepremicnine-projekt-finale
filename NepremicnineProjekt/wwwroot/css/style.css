@@ -15,7 +15,6 @@ html{
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
-    font-family: 'APL', sans-serif;
 }
 
 body {
@@ -28,10 +27,7 @@ body {
     overflow-x: hidden;
 }
 
-@font-face {
-    font-family: APL;
-    src: url(Aga.ttf);
-}
+
 
 .container-fluid {
     background: var(--night);
@@ -165,4 +161,61 @@ footer{
     height: 150px; 
     background: var(--mainDark); 
     margin-top: 20px
+}
+
+.post_card_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.post_card{
+    background: rebeccapurple;
+    height: 300px;
+    border-radius: var(--btnBorder);
+    overflow: hidden;
+    position: relative;
+}
+
+.post_card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post_card .banner{
+    background: red;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_card .banner h2{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+}
+
+.post_card .price_banner{
+    background: blue;
+    width: 30%;
+    height: 20%;
+    top: 0;
+    right: 0;
+    border-radius: 0 var(--btnBorder);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_card .price_banner h2{
+    color: white;
+    font-size: 30px;
+    margin: 0;
 }
