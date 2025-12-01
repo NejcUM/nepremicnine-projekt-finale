@@ -1,0 +1,221 @@
+:root{
+    --mainColor: #0fa2df;
+    --secondColor: #25bdfb;
+    --mainDark: #191919;
+    --night: linear-gradient(13deg, var(--mainColor) 25%, var(--secondColor) 95%);
+    --btnBorder: 16px;
+}
+
+html{
+    background-color: var(--secondColor);
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    background: var(--night);
+    overflow-x: hidden;
+}
+
+
+
+.container-fluid {
+    background: var(--night);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.container-fluid-half {
+    background: var(--night);
+    height: 50%;
+    width: 100%;
+    position: absolute;
+}
+
+.login-btn {
+    background: var(--mainColor);
+    display:block; 
+    width:100%; 
+    padding:10px; 
+    margin:10px 0;
+    border-radius:var(--btnBorder);
+    color:#fff;
+}
+
+.register-btn {
+    background: var(--secondColor);
+    display:block;
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:var(--btnBorder);
+    color:#fff;
+}
+
+.error-text {
+    color:#ff5252; 
+    text-align: center;
+}
+
+.overlay-textbox{
+    background: var(--secondColor); 
+    width:50%; 
+    height:50px; 
+    position:absolute; 
+    bottom:20px; 
+    right:25%;  
+    display:flex; 
+    justify-content:center;
+    align-items:center; 
+    border-radius: var(--btnBorder);
+    font-size: 22px; color: white;
+    border: 3px solid var(--mainColor);
+}
+
+.main-section {
+    background: var(--mainDark); 
+    width: 85%; 
+    height: auto; 
+    margin: 0 auto; 
+    margin-top: 20px; 
+    border-radius: 20px; 
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow: hidden
+}
+
+header {
+    width: 85%; 
+    height: 150px; 
+    margin-top: 20px; 
+    margin-left:auto; 
+    margin-right: auto;  
+    border-radius: 20px; 
+    background: #191919;
+}
+
+header h1 {
+    text-align: center; 
+    color: white; 
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+header div {
+    height: 40px; 
+    width: 100%; 
+    text-align: center
+}
+
+.top-category-btn{
+    background: var(--secondColor);
+    height: 100%;
+    width: 10%;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    font-size: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.top-searchbar{
+    background: var(--secondColor);
+    height: 100%;
+    width: 20%;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.top-searchbar::placeholder {
+    color: white; 
+    padding-left: 20px;
+}
+.top-search-btn{
+    background: var(--secondColor);
+    height: 100%;
+    width: 50px;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+footer{
+    width: 100%; 
+    height: 150px; 
+    background: var(--mainDark); 
+    margin-top: 20px
+}
+
+.post_card_container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.post_card{
+    background: rebeccapurple;
+    height: 300px;
+    border-radius: var(--btnBorder);
+    overflow: hidden;
+    position: relative;
+}
+
+.post_card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post_card .banner{
+    background: red;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_card .banner h2{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+}
+
+.post_card .price_banner{
+    background: blue;
+    width: 30%;
+    height: 20%;
+    top: 0;
+    right: 0;
+    border-radius: 0 var(--btnBorder);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_card .price_banner h2{
+    color: white;
+    font-size: 30px;
+    margin: 0;
+}

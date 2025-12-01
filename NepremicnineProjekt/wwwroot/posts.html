@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<section class="main-section">
+    <div style="width: 100%; height: 40px; display: flex;
+    flex-direction: row-reverse; margin-bottom: 20px; padding-right: 40px">
+        <button onclick="sortCards('asc', 'price')" class="top-category-btn">Price: Low → High</button>
+        <button onclick="sortCards('desc', 'price')" class="top-category-btn">Price: High → Low</button>
+        <button onclick="sortCards('asc', 'size')" class="top-category-btn">Size: Small → Large</button>
+        <button onclick="sortCards('desc', 'size')" class="top-category-btn">Size: Large → Small</button>
+        <div style="align-items: center;  display: flex; height: 100%">
+            <h1 style="color: white; padding-right: 20px; font-size: 25px; margin:0">Sort:</h1>
+        </div>
+    </div>
+    <div id="card-container" class="post_card_container">
+        <!--CARDS_GO_HERE-->
+    </div>
+
+</section>
+
+<script>
+    function sortCards(order, type) {
+        const container = document.getElementById('card-container');
+        const cards = Array.from(container.getElementsByClassName('post_card'));
+
+        cards.sort((a, b) => {
+            let valueA, valueB;
+
+            if (type === 'price') {
+                valueA = parseFloat(a.querySelector('.price_banner h2').innerText.replace('€','').trim());
+                valueB = parseFloat(b.querySelector('.price_banner h2').innerText.replace('€','').trim());
+            } else if (type === 'size') {
+                valueA = parseFloat(a.querySelector('.banner h2[style*="display:none"]').innerText.trim());
+                valueB = parseFloat(b.querySelector('.banner h2[style*="display:none"]').innerText.trim());
+            }
+
+            return order === 'asc' ? valueA - valueB : valueB - valueA;
+        });
+
+        // Remove old cards and append sorted ones
+        container.innerHTML = '';
+        cards.forEach(card => container.appendChild(card));
+    }
+</script>
+
+<div id="footer"></div>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+</body>
+
+<script>
+    fetch("header.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("header").innerHTML = html);
+
+    fetch("footer.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+</html>
