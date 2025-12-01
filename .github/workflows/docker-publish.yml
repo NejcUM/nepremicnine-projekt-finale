@@ -15,10 +15,10 @@ jobs:
         uses: actions/checkout@v4
 
       # --- DODANI KORAKI ZA TESTIRANJE ---
-      - name: Setup .NET
+      - name: Setup .NET 9.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'  # SPREMENI NA TVOJO VERZIJO ČE NI 8.0
+          dotnet-version: '9.0.x'  # SPREMENJENO IZ 8.0 NA 9.0
           
       - name: Restore dependencies
         run: dotnet restore
