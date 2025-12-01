@@ -1,0 +1,214 @@
+Index: Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\nvar builder = WebApplication.CreateBuilder(args);\nvar app = builder.Build();\n\napp.UseStaticFiles();\n\napp.MapGet(\"/\", LoginPage.Show);\napp.MapGet(\"/login\", LoginPage.Show);\napp.MapPost(\"/login\", LoginPage.Handle);\n\napp.MapGet(\"/register\", RegisterPage.Show);\napp.MapPost(\"/register\", RegisterPage.Handle);\n\napp.MapGet(\"/admin\", AdminPage.Show);\napp.MapPost(\"/admin\", AdminPage.Handle);\n\n\napp.Run(\"http://*:8080\");\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Program.cs b/Program.cs
+--- a/Program.cs	(revision 3228fad68bb1f0b82e5a688db0987b207e4b3ef1)
++++ b/Program.cs	(date 1763557521574)
+@@ -1,20 +1,30 @@
+-
+-var builder = WebApplication.CreateBuilder(args);
+-var app = builder.Build();
++namespace NepremicnineProjekt;
++public class Program
++{
++    public static DBManager db_manager = new DBManager();
++    public static void Main(string[] args)
++    {
++        var builder = WebApplication.CreateBuilder(args);
++        var app = builder.Build();
+ 
+-app.UseStaticFiles();
++        app.UseStaticFiles();
+ 
+-app.MapGet("/", LoginPage.Show);
+-app.MapGet("/login", LoginPage.Show);
+-app.MapPost("/login", LoginPage.Handle);
++        app.MapGet("/", LoginPage.Show);
++        app.MapGet("/login", LoginPage.Show);
++        app.MapPost("/login", LoginPage.Handle);
+ 
+-app.MapGet("/register", RegisterPage.Show);
+-app.MapPost("/register", RegisterPage.Handle);
++        app.MapGet("/register", RegisterPage.Show);
++        app.MapPost("/register", RegisterPage.Handle);
+ 
+-app.MapGet("/admin", AdminPage.Show);
+-app.MapPost("/admin", AdminPage.Handle);
++        app.MapGet("/admin", AdminPage.Show);
++        app.MapPost("/admin", AdminPage.Handle);
+ 
+ 
+-app.Run("http://*:8080");
++        app.Run("http://*:8080");
++    }
++}
++
++
++
+ 
+ 
+Index: PagesBackend/Register.cs
+===================================================================
+diff --git a/PagesBackend/Register.cs b/Pages/Register.cs
+rename from PagesBackend/Register.cs
+rename to Pages/Register.cs
+--- a/PagesBackend/Register.cs	(revision 3228fad68bb1f0b82e5a688db0987b207e4b3ef1)
++++ b/Pages/Register.cs	(date 1763558070870)
+@@ -1,6 +1,7 @@
+ using Microsoft.AspNetCore.Http;
+ using Microsoft.AspNetCore.Builder;
+ using System.Text.Json;
++using NepremicnineProjekt;
+ 
+ public static class RegisterPage
+ {
+@@ -11,7 +12,6 @@
+     
+     public static async Task<IResult> Handle(HttpRequest request)
+     {
+-        var users = new DBManager().GetUsers();
+         var form = await request.ReadFormAsync();
+         var username = form["username"];
+         var email = form["email"];
+@@ -19,25 +19,16 @@
+         var passwordAgain = form["password-again"];
+ 
+         if (password != passwordAgain)
+-        {
+             return Results.Text("Passwords do not match");
+-        }
+-
+-        if(users.Any(u => u.Username == username))
+-            return Results.Text("Username already exists");
+         
+-        if(users.Any(u => u.Email == email))
+-            return Results.Text("Email already registered");
+-
+-        users.Add(
+-            new User
+-            {
+-                Username = username, 
+-                Email = email,
+-                Password = password
+-            });
++        var (success, message) =  Program.db_manager.AddUser(new User {
++            Username = username, 
++            Email = email,
++            Password = password
++        });
+         
+-        new DBManager().SetUsers(users);
++        if(!success)
++            return Results.Text(message);
+ 
+         return Results.Redirect("/home.html");
+     }
+Index: PagesBackend/Login.cs
+===================================================================
+diff --git a/PagesBackend/Login.cs b/Pages/Login.cs
+rename from PagesBackend/Login.cs
+rename to Pages/Login.cs
+--- a/PagesBackend/Login.cs	(revision 3228fad68bb1f0b82e5a688db0987b207e4b3ef1)
++++ b/Pages/Login.cs	(date 1763558173144)
+@@ -1,5 +1,6 @@
+ using Microsoft.AspNetCore.Http;
+ using Microsoft.AspNetCore.Builder;
++using NepremicnineProjekt;
+ 
+ public static class LoginPage
+ {
+@@ -10,14 +11,11 @@
+     
+     public static async Task<IResult> Handle(HttpRequest request)
+     {
+-        var users = new DBManager().GetUsers();
+         var form = await request.ReadFormAsync();
+         var username = form["username"];
+         var password = form["password"];
+-
+-        var user = users.FirstOrDefault(u => u.Username == username && u.Password == password);
+-
+-        if (user != null)
++        
++        if (Program.db_manager.LoginChek(username, password))
+         {
+            return Results.Redirect("/home.html");
+         }
+Index: Database/Users.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[{\"Username\":\"kiki\",\"Password\":\"1234\",\"Email\":null,\"SavedPostsID\":null},\n  {\"Username\":\"22\",\"Password\":\"22\",\"Email\":\"222\",\"SavedPostsID\":null}]
+===================================================================
+diff --git a/Database/Users.json b/Database/Users.json
+--- a/Database/Users.json	(revision 3228fad68bb1f0b82e5a688db0987b207e4b3ef1)
++++ b/Database/Users.json	(date 1763558015914)
+@@ -1,2 +1,1 @@
+-[{"Username":"kiki","Password":"1234","Email":null,"SavedPostsID":null},
+-  {"Username":"22","Password":"22","Email":"222","SavedPostsID":null}]
+\ No newline at end of file
++[{"Username":"kiki","Password":"1234","Email":"kiki.vinko@gmail.com","SavedPostsID":null}]
+\ No newline at end of file
+Index: Database/DBManager.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System.Text.Json;\n\npublic class DBManager\n{\n    public List<User> GetUsers()\n    {\n        var usersFile = \"Database/Users.json\";\n        var users = File.Exists(usersFile)\n            ? JsonSerializer.Deserialize<List<User>>(File.ReadAllText(usersFile))!\n            : new List<User>();\n        return users;\n    }\n    \n    public void SetUsers(List<User> users)\n    {\n        var usersFile = \"Database/Users.json\";\n        File.WriteAllText(usersFile, JsonSerializer.Serialize(users));\n    }\n    \n    public List<Post> GetPosts()\n    {\n        var postsFile = \"Database/Posts.json\";\n        var posts = File.Exists(postsFile)\n            ? JsonSerializer.Deserialize<List<Post>>(File.ReadAllText(postsFile))!\n            : new List<Post>();\n        return posts;\n    }\n    \n    public void SetPosts(List<Post> posts)\n    {\n        var postsFile = \"Database/Posts.json\";\n        File.WriteAllText(postsFile, JsonSerializer.Serialize(posts));\n    }\n}
+===================================================================
+diff --git a/Database/DBManager.cs b/Database/DBManager.cs
+--- a/Database/DBManager.cs	(revision 3228fad68bb1f0b82e5a688db0987b207e4b3ef1)
++++ b/Database/DBManager.cs	(date 1763558148244)
+@@ -16,6 +16,21 @@
+         var usersFile = "Database/Users.json";
+         File.WriteAllText(usersFile, JsonSerializer.Serialize(users));
+     }
++
++    public (bool success, string message) AddUser(User user)
++    {
++        if (UsernameExist(user.Username))
++            return (false, "Username already exists");
++        
++        if (EmailExist(user.Email))
++            return (false, "Email already exists");
++        
++        var users = GetUsers();
++        users.Add(user);
++        SetUsers(users);
++        
++        return (true, "");
++    }
+     
+     public List<Post> GetPosts()
+     {
+@@ -31,4 +46,19 @@
+         var postsFile = "Database/Posts.json";
+         File.WriteAllText(postsFile, JsonSerializer.Serialize(posts));
+     }
++
++    public bool UsernameExist(string username)
++    {
++        return GetUsers().Any(u => u.Username == username);
++    }
++    
++    public bool EmailExist(string email)
++    {
++        return GetUsers().Any(u => u.Email == email);
++    }
++
++    public bool LoginChek(string username, string password)
++    {
++        return GetUsers().Any(u => u.Username == username && u.Password == password);
++    }
+ }
+\ No newline at end of file
+diff --git a/PagesBackend/Home.cs b/Pages/Home.cs
+rename from PagesBackend/Home.cs
+rename to Pages/Home.cs
+diff --git a/PagesBackend/Map.cs b/Pages/Map.cs
+rename from PagesBackend/Map.cs
+rename to Pages/Map.cs
+diff --git a/PagesBackend/Admin.cs b/Pages/Admin.cs
+rename from PagesBackend/Admin.cs
+rename to Pages/Admin.cs
