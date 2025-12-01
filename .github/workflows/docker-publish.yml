@@ -1,16 +1,42 @@
-name: Build & Push Docker Image
+name: Build, Test & Push Docker Image
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-push:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      # --- DODANI KORAKI ZA TESTIRANJE ---
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'  # SPREMENI NA TVOJO VERZIJO ČE NI 8.0
+          
+      - name: Restore dependencies
+        run: dotnet restore
+        
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
+        
+      - name: Run unit tests
+        run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+          retention-days: 30
+      # --- KONEC DODANIH KORAKOV ---
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -25,7 +51,7 @@ jobs:
         id: vars
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -39,5 +65,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'nepremicnine-projekt'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} 
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: 'nejchd/nepremicnine-projekt-finale:latest'
