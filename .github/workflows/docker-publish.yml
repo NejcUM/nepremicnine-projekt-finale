@@ -17,8 +17,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0'
+          
       - name: Run tests
-        run: dotnet test
+        run: dotnet test ./NepremicnineProjektTests/NepremicnineProjektTests.csproj
       # --- KONEC DODATKA ---
 
       - name: Set up Docker Buildx
