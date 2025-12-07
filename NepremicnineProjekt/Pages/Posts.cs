@@ -8,7 +8,7 @@ public static class PostsPage
     {
         var htmlTemplate = File.ReadAllText("wwwroot/posts.html");
         var cardsHtml = "";
-        foreach (var post in Program.posts)
+        foreach (var post in Program.db_manager.GetPosts())
         {
             cardsHtml += $@"
             <div class='post_card'>

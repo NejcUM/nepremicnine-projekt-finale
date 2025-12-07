@@ -18,6 +18,20 @@ public sealed class Tests
     }
     
     [TestMethod]
+    public void Test_ValidEmail_Valid()
+    {
+        bool valid = Program.db_manager.ValidEmail("marko@gmail.com");
+        Assert.IsTrue(valid);
+    }
+    
+    [TestMethod]
+    public void Test_ValidEmail_Invalid()
+    {
+        bool valid = Program.db_manager.ValidEmail("marko.com");
+        Assert.IsFalse(valid);
+    }
+    
+    [TestMethod]
     public void Test_EmailExist_Exist()
     {
         bool exist = Program.db_manager.EmailExist("kiki.vinko@gmail.com");
