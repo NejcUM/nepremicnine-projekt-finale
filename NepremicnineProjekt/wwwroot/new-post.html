@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New Post</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<section class="main-section">
+
+            <form id="new-post-form" method="post" action="/new-post"
+                  style="width:300px; margin:0 auto;">
+                <h1 style="text-align: center; margin-top: 12%; margin-bottom: 10%; color: white">Novi oglas</h1>
+
+                <input type="text" name="title" placeholder="Naslov" required
+                       style="display:block; width:100%; padding:10px; margin:10px 0" />
+
+                <input type="text" name="desxription" placeholder="Opis" required
+                       style="display:block; width:100%; padding:10px; margin:10px 0" />
+
+                <input type="text" name="imageUrl" placeholder="Slika url" required
+                       style="display:block; width:100%; padding:10px; margin:10px 0;" />
+
+                <input type="text" name="size" placeholder="Velikost (m2)" required
+                       style="display:block; width:100%; padding:10px; margin:10px 0;" />
+
+                <input type="text" name="price" placeholder="Cena" required
+                       style="display:block; width:100%; padding:10px; margin:10px 0;" />
+
+                <button type="submit" class="register-btn">Dodaj oglas</button>
+
+                <div id="error-message" class="error-text"></div>
+
+            </form>
+     
+
+
+</section>
+
+
+
+<script>
+    const form = document.getElementById("new-post-form");
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const res = await fetch("/new-post", { method: "POST", body: formData });
+        const result = await res.json();
+
+        const errorDiv = document.getElementById("error-message");
+        if(result.success){
+            window.location.href = "/posts";
+        } else {
+            errorDiv.innerText = result.message;
+        }
+    });
+</script>
+<div id="footer"></div>
+</body>
+<script>
+    fetch("header.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("header").innerHTML = html);
+
+    fetch("footer.html")
+        .then(res => res.text())
+        .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+</html>

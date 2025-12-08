@@ -12,22 +12,15 @@ public static class NewPostPage
     public static async Task<IResult> Handle(HttpRequest request)
     {
         var form = await request.ReadFormAsync();
-        var username = form["username"];
-        var email = form["email"];
-        var password = form["password"];
-        var passwordAgain = form["password-again"];
-
-        if (password != passwordAgain)
-        {
-            return Results.Text("Passwords do not match");
-        }
+        var title = form["title"];
+        var description = form["description"];
+        var imageUrl = form["imageUrl"];
+        var size = form["size"];
+        var price = form["price"];
         
-        var (success, _message) = Program.db_manager.AddUser(new User
-        {
-            Username = username,
-            Email = email,
-            Password = password
-        });
+        var (success, _message) = Program.db_manager.AddPost(new Post(
+            title, description, imageUrl, size,"", price
+        ));
         
         if (!success)
             return Results.Json(new { success = false, message = _message });

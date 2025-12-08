@@ -3,6 +3,17 @@ using NepremicnineProjekt;
 
 public class DBManager
 {
+    private static readonly string[] Colors =
+    {
+        "#1F2937",
+        "#1E3A8A",
+        "#064E3B",
+        "#7C2D12",
+        "#4C1D95",
+        "#831843"
+    };
+    private static readonly Random _random = new();
+    
     public List<User> GetUsers()
     {
         var usersFile = "Database/Users.json";
@@ -48,18 +59,48 @@ public class DBManager
     public void SetPosts(List<Post> posts)
     {
         var postsFile = "Database/Posts.json";
-        File.WriteAllText(postsFile, JsonSerializer.Serialize(posts));
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        File.WriteAllText(postsFile, JsonSerializer.Serialize(posts, options));
     }
     
     public (bool Success, string Message) AddPost(Post post)
     {
         var posts = GetPosts();
+
+        if (!IsValueNumber(post.Price)) 
+            return (false, "price should be a number");
+ 
+        
+        if (!IsImageUrlValid(post.ImageUrl))
+            return (false, "imageUrl is not in right format (https://)");
+        
+        post.Color = Colors[_random.Next(Colors.Length)];
+        
         
         post.Id = posts.Any() ? posts.Max(p => p.Id) + 1 : 1;
         posts.Add(post);
         SetPosts(posts);
         
         return (true, "");
+    }
+    
+    public bool IsValueNumber(string value)
+    {
+        return int.TryParse(value, out _);
+    }
+    
+    public bool IsImageUrlValid(string imageUrl)
+    {
+        if (string.IsNullOrWhiteSpace(imageUrl))
+            return false;
+
+        return Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri)
+               && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
     }
     
     public bool UsernameExist(string username)
