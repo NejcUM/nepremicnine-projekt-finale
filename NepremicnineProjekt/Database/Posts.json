@@ -43,23 +43,5 @@
     "Description": "V mirnem in zelenem okolju v \u0160entvidu prodamo sodobno zasnovano vrstno hi\u0161o, ki se nahaja v urejeni soseski osmih vrstnih hi\u0161.",
     "Price": "682 000",
     "Color": "#82874f"
-  },
-  {
-    "Id": 6,
-    "Title": "h",
-    "ImageUrl": "h",
-    "Size": "h",
-    "Description": null,
-    "Price": "",
-    "Color": "h"
-  },
-  {
-    "Id": 7,
-    "Title": "s",
-    "ImageUrl": "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_16x9.jpg?w=1200",
-    "Size": "2",
-    "Description": null,
-    "Price": "2",
-    "Color": "#4C1D95"
   }
 ]

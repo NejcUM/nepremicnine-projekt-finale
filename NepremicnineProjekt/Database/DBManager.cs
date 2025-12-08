@@ -46,6 +46,12 @@ public class DBManager
         
         return (true, "");
     }
+
+    public Post? GetPost(int id)
+    {
+        var posts = GetPosts();
+        return posts.FirstOrDefault(p => p.Id == id);
+    }
     
     public List<Post> GetPosts()
     {
@@ -87,6 +93,28 @@ public class DBManager
         SetPosts(posts);
         
         return (true, "");
+    }
+
+    public bool DeletePost(int id)
+    {
+        var postsFile = "Database/Posts.json";
+        if (!File.Exists(postsFile))
+            return false;
+
+        var posts = JsonSerializer.Deserialize<List<Post>>(File.ReadAllText(postsFile)) ?? new List<Post>();
+
+        var postToRemove = posts.FirstOrDefault(p => p.Id == id);
+        if (postToRemove == null)
+            return false;
+
+        posts.Remove(postToRemove);
+
+        File.WriteAllText(postsFile, JsonSerializer.Serialize(posts, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        }));
+
+        return true;
     }
     
     public bool IsValueNumber(string value)

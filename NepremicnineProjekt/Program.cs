@@ -17,9 +17,6 @@ public class Program
 
         app.MapGet("/register", RegisterPage.Show);
         app.MapPost("/register", RegisterPage.Handle);
-
-        app.MapGet("/admin", AdminPage.Show);
-        app.MapPost("/admin", AdminPage.Handle);
         
         app.MapGet("/home", HomePage.Show);
         app.MapPost("/home", HomePage.Handle);
@@ -33,7 +30,21 @@ public class Program
         app.MapGet("/new-post", NewPostPage.Show);
         app.MapPost("/new-post", NewPostPage.Handle);
         
-       
+        app.MapGet("/map", MapPage.Show);
+        app.MapPost("/map", MapPage.Handle);
+        
+        app.MapGet("/post", PostPage.GetPost);
+        app.MapPost("/post", PostPage.Handle);
+        
+        app.MapDelete("/delete-post", (HttpRequest request) =>
+        {
+            if(!int.TryParse(request.Query["id"], out int id))
+                return Results.BadRequest();
+
+            bool deleted = db_manager.DeletePost(id);
+            return deleted ? Results.Ok() : Results.NotFound();
+        });
+        
         app.Run("http://*:8080");
     }
     

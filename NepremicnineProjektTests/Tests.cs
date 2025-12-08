@@ -86,4 +86,11 @@ public sealed class Tests
         bool valid = Program.db_manager.IsImageUrlValid("google.com/img.png");
         Assert.IsFalse(valid);
     }
+    
+    [TestMethod]
+    public void Test_DeletePost_ValidId()
+    {
+        bool is_delted = Program.db_manager.DeletePost(0);
+        Assert.IsFalse(is_delted);
+    }
 }

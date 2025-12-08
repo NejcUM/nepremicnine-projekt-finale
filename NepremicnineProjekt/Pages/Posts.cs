@@ -11,16 +11,18 @@ public static class PostsPage
         foreach (var post in Program.db_manager.GetPosts())
         {
             cardsHtml += $@"
-            <div class='post_card'>
-                <img src='{post.ImageUrl}'>
-                <div class='price_banner' style='background:{post.Color}'>
-                    <h2>{post.Price} &euro;</h2>
+            <a href='/post.html?id={post.Id}' style='text-decoration: none;'>
+                <div class='post_card'>
+                    <img src='{post.ImageUrl}'>
+                    <div class='price_banner' style='background:{post.Color}'>
+                        <h2>{post.Price} &euro;</h2>
+                    </div>
+                    <div class='banner' style='background:{post.Color}'>
+                        <h2>{post.Title}</h2>
+                        <h2 style='display:none'>{post.Size}</h2>
+                    </div>
                 </div>
-                <div class='banner' style='background:{post.Color}'>
-                    <h2>{post.Title}</h2>
-                    <h2 style='display:none'>{post.Size}</h2>
-                </div>
-            </div>";
+            </a>";
         }
         
         var finalHtml = htmlTemplate.Replace("<!--CARDS_GO_HERE-->", cardsHtml);
