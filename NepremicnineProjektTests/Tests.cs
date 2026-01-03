@@ -90,7 +90,7 @@ public sealed class Tests
     [TestMethod]
     public void Test_DeletePost_ValidId()
     {
-        bool is_delted = Program.db_manager.DeletePost(0);
-        Assert.IsFalse(is_delted);
+        bool is_deleted = Program.db_manager.DeletePost(0);
+        Assert.IsFalse(is_deleted);
     }
 }

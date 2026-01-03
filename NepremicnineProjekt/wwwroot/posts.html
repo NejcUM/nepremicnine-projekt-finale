@@ -13,10 +13,21 @@
 <section class="main-section">
     <div style="width: 100%; height: 40px; display: flex;
     flex-direction: row-reverse; margin-bottom: 20px; padding-right: 40px">
-        <button onclick="sortCards('asc', 'price')" class="top-category-btn">Price: Low → High</button>
-        <button onclick="sortCards('desc', 'price')" class="top-category-btn">Price: High → Low</button>
-        <button onclick="sortCards('asc', 'size')" class="top-category-btn">Size: Small → Large</button>
-        <button onclick="sortCards('desc', 'size')" class="top-category-btn">Size: Large → Small</button>
+        <button onclick="sortCards('asc', 'price', this)" class="top-category-btn">
+            Price: Low → High
+        </button>
+
+        <button onclick="sortCards('desc', 'price', this)" class="top-category-btn">
+            Price: High → Low
+        </button>
+
+        <button onclick="sortCards('asc', 'size', this)" class="top-category-btn">
+            Size: Small → Large
+        </button>
+
+        <button id="defaultSort" onclick="sortCards('desc', 'size', this)" class="top-category-btn">
+            Size: Large → Small
+        </button>
         <div style="align-items: center;  display: flex; height: 100%">
             <h1 style="color: white; padding-right: 20px; font-size: 25px; margin:0">Sort:</h1>
         </div>
@@ -28,10 +39,14 @@
 </section>
 
 <script>
-    function sortCards(order, type) {
+    function sortCards(order, type, btn) {
+        document.querySelectorAll('.top-category-btn')
+            .forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
         const container = document.getElementById('card-container');
         const cards = Array.from(container.getElementsByClassName('post_card'));
-
+        
         cards.sort((a, b) => {
             let valueA, valueB;
 
@@ -49,7 +64,14 @@
         // Remove old cards and append sorted ones
         container.innerHTML = '';
         cards.forEach(card => container.appendChild(card));
+
     }
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('defaultSort').click();
+    });
+
 </script>
 
 <div id="footer"></div>
