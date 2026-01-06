@@ -1,13 +1,13 @@
 :root{
-    --mainColor: #0fa2df;
-    --secondColor: #25bdfb;
+    --mainColor: #555555;
+    --secondColor: #393939;
     --mainDark: #191919;
     --night: linear-gradient(13deg, var(--mainColor) 25%, var(--secondColor) 95%);
     --btnBorder: 16px;
 }
 
 html{
-    background-color: var(--secondColor);
+    background: var(--night);
 }
 
 * {
@@ -125,9 +125,14 @@ header div {
     color: white;
     border-radius: 15px;
     border: 0;
-    font-size: 16px;
+    font-size: 12px;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.top-category-btn.active{
+    background: white;
+    color: var(--secondColor);
 }
 
 .top-searchbar{

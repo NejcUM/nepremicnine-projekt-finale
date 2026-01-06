@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "Id": 1,
+    "Title": "Nova hi\u0161a",
+    "ImageUrl": "https://www.krka-nepremicnine.si/wp-content/uploads/2025/06/IMG_4639.jpg",
+    "Size": "150",
+    "Description": "Na prodaji zelo lepa nova bela hi\u0161a",
+    "Price": "180 000",
+    "Color": "#ec5929"
+  },
+  {
+    "Id": 2,
+    "Title": "Stara hi\u0161a",
+    "ImageUrl": "https://img.nepremicnine.net/slonep_oglasi2/18630086.jpg",
+    "Size": "110",
+    "Description": "Na prodaji stara hi\u0161a",
+    "Price": "99 000",
+    "Color": "#5f3119"
+  },
+  {
+    "Id": 3,
+    "Title": "1 sobno stanovanje",
+    "ImageUrl": "https://img.nepremicnine.net/slonep_oglasi2/16903995.jpg",
+    "Size": "64",
+    "Description": "NOVOGRADNJA - OTOK KRK !! Mesto Krk, na dobri lokaciji 500 m od morja.",
+    "Price": "362 500",
+    "Color": "#58647c"
+  },
+  {
+    "Id": 5,
+    "Title": "Vrstna hi\u0161a v \u0161entvidu",
+    "ImageUrl": "https://www.mestonepremicnin.si/uploads/novogradnja/brez-31__ujyd1wVE-1500x972_1763560328.jpg",
+    "Size": "192",
+    "Description": "V mirnem in zelenem okolju v \u0160entvidu prodamo sodobno zasnovano vrstno hi\u0161o, ki se nahaja v urejeni soseski osmih vrstnih hi\u0161.",
+    "Price": "682 000",
+    "Color": "#82874f"
+  }
+]
